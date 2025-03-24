@@ -1,0 +1,28 @@
+
+public class Book{
+	
+	private String isbn;
+	private String name;
+	private String author;
+
+	//make required code adjustment 
+}
+
+
+public class BookService{
+	
+	private BookRepository bookRepository;
+
+	public String addBook(Book book){
+
+	String resp=bookRepository.save(book);
+	return resp;
+	}
+
+
+}
+
+public interface Repository{
+	
+	public String save(Book book); 
+}
