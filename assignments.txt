@@ -25,4 +25,19 @@ public class BookService{
 public interface Repository{
 	
 	public String save(Book book); 
-}
+	}
+	
+	
+	
+	##SQL
+1. log in to MySQL terminal
+2. create database librarydb;
+
+3. use librarydb;
+
+create table book(isbn varchar(30) primar key, name varchar(50), author varchar(30), genre varchar(20));
+
+insert into book(isbn,name,author,genre) values ('112233','Harry Potter','JK Rowling','Fantasy');
+insert into book(isbn,name,author,genre) values ('224455','Far from Madding crowd','Thomas Hardy','drama');
+insert into book(isbn,name,author,genre) values ('553345','Tom Swayer','mark Twain','drama');
+insert into book(isbn,name,author,genre) values ('334422','Good Earth','Pearl S Buck','drama');
