@@ -7,7 +7,7 @@ public interface MyJdbcRepository {
 
 	public List<Book> findAll();
 	public Optional<Book> save(Book book);
-	public Book update(Book book);
+	public Optional<Book> update(Book book);
 	public void delete(String isbn);
 	public Optional<Book> findById(String isbn);
 	

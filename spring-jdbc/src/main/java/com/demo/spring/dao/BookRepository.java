@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -59,9 +60,20 @@ public class BookRepository implements MyJdbcRepository {
 	}
 
 	@Override
-	public Book update(Book book) {
-		// TODO Auto-generated method stub
-		return null;
+	public Optional<Book> update(Book book) {
+		
+			if (this.findById(book.getIsbn()).isPresent()) {
+				int count = jdbcTemplate.update("update book set name=?,author=?,genre=?)", book.getName(),
+						book.getAuthor(), book.getGenre());
+				if (count == 1) {
+					return findById(book.getIsbn());
+				} else {
+					throw new RuntimeException("Error");
+				}
+			} else {
+				throw new BookNotFoundException("Book exists..");
+			}
+		
 	}
 
 	@Override
@@ -77,7 +89,7 @@ public class BookRepository implements MyJdbcRepository {
 			Book book = jdbcTemplate.queryForObject("select * from book where isbn=?", new BookRowMapper(), isbn);
 			return Optional.of(book);
 		} catch (EmptyResultDataAccessException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 			return Optional.empty();
 		}
 
