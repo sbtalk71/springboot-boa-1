@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.demo.spring.entities.Book;
+import com.demo.spring.exceptions.BookExistsException;
 import com.demo.spring.exceptions.BookNotFoundException;
 import com.demo.spring.repositories.BookRepository;
 
@@ -17,18 +18,27 @@ public class BookService {
 	public BookService(BookRepository bookRepository) {
 		this.bookRepository = bookRepository;
 	}
-	
-	public List<Book> getAllBooks(){
+
+	public List<Book> getAllBooks() {
 		return bookRepository.findAll();
 	}
-	
+
 	public Book findBookById(String isbn) {
-		Optional<Book> bookOp=bookRepository.findById(isbn);
-		if(bookOp.isPresent()) {
+		Optional<Book> bookOp = bookRepository.findById(isbn);
+		if (bookOp.isPresent()) {
 			return bookOp.get();
-		}else {
-			throw new BookNotFoundException("Book with ISBN "+isbn+" not found");
+		} else {
+			throw new BookNotFoundException("Book with ISBN " + isbn + " not found");
 		}
 	}
-	
+
+	public Book saveBook(Book book) {
+
+		if (bookRepository.existsById(book.getIsbn())) {
+			throw new BookExistsException("The book exists..");
+		} else {
+			return bookRepository.save(book);
+		}
+	}
+
 }

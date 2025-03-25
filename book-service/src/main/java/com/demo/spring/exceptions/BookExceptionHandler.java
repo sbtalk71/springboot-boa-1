@@ -10,7 +10,7 @@ import com.demo.spring.util.ResponseMessage;
 public class BookExceptionHandler {
 
 	@ExceptionHandler(BookResourceException.class)
-	public ResponseEntity<ResponseMessage> handle(BookNotFoundException e){
+	public ResponseEntity<ResponseMessage> handle(BookResourceException e){
 		return ResponseEntity.status(404).body(new ResponseMessage(e.getMessage()));
 	}
 	
