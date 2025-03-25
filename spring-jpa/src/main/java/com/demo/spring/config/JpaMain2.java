@@ -16,6 +16,7 @@ import jakarta.persistence.StoredProcedureQuery;
 public class JpaMain2 {
 
 	public static void main(String[] args) {
+		//Not quite a correct approach
 		ApplicationContext ctx = new AnnotationConfigApplicationContext(JpaAppConfig.class);
 
 		EntityManagerFactory emf = (EntityManagerFactory) ctx.getBean(EntityManagerFactory.class);
