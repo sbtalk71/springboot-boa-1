@@ -1,6 +1,6 @@
 package com.demo.spring.exceptions;
 
-public class BookExistsException extends RuntimeException {
+public class BookExistsException extends BookResourceException {
 
 	public BookExistsException() {
 		// TODO Auto-generated constructor stub
