@@ -28,7 +28,7 @@ public class LibraryController {
 	public ResponseEntity<BookDTO> locateBook(@PathVariable String id){
 		BookDTO dto= restClientBuilder.build()
 				.get()
-				.uri("http://localhost:8181/books/"+id)
+				.uri("http://book-service/books/"+id)
 				.accept(MediaType.APPLICATION_JSON)
 				.retrieve()
 				.body(BookDTO.class);
