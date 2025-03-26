@@ -29,7 +29,7 @@ public class RestClients1 {
 		System.out.println(response1);
 		
 		
-		List<BookDTO> response2=restClient.get()
+		List<BookDTO> response2=builder.build().get()
 				.uri("http://localhost:8181/books/")
 				.accept(MediaType.APPLICATION_JSON)
 				.retrieve()
