@@ -44,4 +44,7 @@ resilience4j.circuitbreaker:
        failureRateThreshold: 40
        eventConsumerBufferSize: 10
        automaticTransitionFromOpenToHalfOpenEnabled: true
-
+logging:
+  level:
+    '[org.springframework.security]': debug
+    '[org.springframework]': error
