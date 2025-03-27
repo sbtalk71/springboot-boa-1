@@ -1,38 +1,29 @@
 package com.demo.spring.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestClient;
-import org.springframework.web.client.RestClient.Builder;
 
 import com.demo.spring.dto.BookDTO;
+import com.demo.spring.services.LibraryService;
 
 @RestController
 @RequestMapping("/library")
 public class LibraryController {
 
-	private RestClient.Builder restClientBuilder;
+	private LibraryService libraryService;
 	
-	public LibraryController(Builder restClientBuilder) {
-		
-		this.restClientBuilder = restClientBuilder;
+	public LibraryController(LibraryService libraryService) {
+		super();
+		this.libraryService = libraryService;
 	}
 
 
 	@GetMapping(path="/books/{id}")
 	public ResponseEntity<BookDTO> locateBook(@PathVariable String id){
-		BookDTO dto= restClientBuilder.build()
-				.get()
-				.uri("http://book-service/books/"+id)
-				.accept(MediaType.APPLICATION_JSON)
-				.retrieve()
-				.body(BookDTO.class);
 		
-		return ResponseEntity.ok(dto);
+		return ResponseEntity.ok(this.libraryService.getBook(id));
 	}
 }

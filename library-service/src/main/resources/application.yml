@@ -16,3 +16,19 @@ management:
  endpoint:
   health:
    show-details: always
+ health: 
+  circuitbreakers:
+    enabled: true
+
+resilience4j.circuitbreaker:
+  instances:
+    backendB:
+     registerHealthIndicator: true
+     slidingWindowSize: 10
+     permittedNumberOfCallsInHalfOpenState: 3
+     slidingWindowType: COUNT_BASED
+     minimumNumberOfCalls: 15
+     waitDurationInOpenState: 30s
+     failureRateThreshold: 40
+     eventConsumerBufferSize: 10
+     automaticTransitionFromOpenToHalfOpenEnabled: true
