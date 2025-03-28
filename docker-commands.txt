@@ -17,3 +17,11 @@ Lab2: run nginx web server on local port 3000 and remove the containeromn exit. 
 
 docker run --rm --name mywebserver -p 3000:80  -d nginx
 
+get the logs from running container:
+docker logs mywebserver
+
+inspect a running container for details:
+docker container inspect mywebserver
+
+get an interactive shell from a running container
+docker exec -it mywebserver sh
