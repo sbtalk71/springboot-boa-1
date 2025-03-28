@@ -1,6 +1,19 @@
 server:
   port: 9000
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+           client-id: api-gateway-app
+           client-secret: 7rizxEa1DnrQCD9KtbHFGmV5DHp3Gpmr
+           authorization-grant-type: authorization_code
+           scope: openid email profile
+           redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/myrealm
   application:
     name: api-gateway
   cloud:
