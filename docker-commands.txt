@@ -25,3 +25,9 @@ docker container inspect mywebserver
 
 get an interactive shell from a running container
 docker exec -it mywebserver sh
+
+To build an image:
+1. write your Dockerfile in the root folder
+2. docker build -t your-repo:tag localtion of Dockerfile
+
+example : docker build -t eureka-server:1.0 .
