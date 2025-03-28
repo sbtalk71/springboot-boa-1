@@ -1,0 +1,50 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      mvc:
+        routes:
+        - id: my-book-service
+          uri: lb://book-service
+          predicates: 
+            Path=/books/**
+        - id: my-lib-service
+          uri: lb://library-service
+          predicates: 
+           Path=/library/**
+          filters:
+          - name: CircuitBreaker
+            args:
+              id: cb1
+              name: backendB
+              fallbackUri: forward:/library-fallback
+              
+        - id: test-url
+          uri: http://google.co.in
+          predicates: 
+           Path=/redirect/**
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+resilience4j.circuitbreaker:
+     instances:
+      backendB:
+       registerHealthIndicator: true
+       slidingWindowSize: 10
+       permittedNumberOfCallsInHalfOpenState: 3
+       slidingWindowType: COUNT_BASED
+       minimumNumberOfCalls: 15
+       waitDurationInOpenState: 30s
+       failureRateThreshold: 40
+       eventConsumerBufferSize: 10
+       automaticTransitionFromOpenToHalfOpenEnabled: true
+logging:
+  level:
+    '[org.springframework.security]': debug
+    '[org.springframework]': error
