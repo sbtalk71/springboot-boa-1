@@ -9,9 +9,9 @@
 
 ## Step 1a: Set Up Keycloak
 1. **Download and Run Keycloak (with Docker)**
-   
+   ```sh
    docker run -d -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:latest start-dev
-   
+   ```
    **Alternatively download Keycloak and run**
    a. Download Keycloak .ZIP file and extract in a suitable folder.
    b. go to keycloak/bin foilder and run the following command to start keyclaok
@@ -40,14 +40,14 @@
    CReate a Spring Boot Project with oauth2 client, web and Security dependencies
     
 2. **Add Dependencies** to `pom.xml`
-   
+   ```xml
    <dependency>
        <groupId>org.springframework.boot</groupId>
        <artifactId>spring-boot-starter-oauth2-client</artifactId>
    </dependency>
-    
+    ```
 3. **Configure `application.yml`**
- 
+ ```yml
    server:
      port: 8081
 
@@ -65,11 +65,11 @@
            provider:
              keycloak:
                issuer-uri: http://localhost:8080/realms/myrealm
-    
+   ```
 
 ## Step 3: Implement Security Configuration
 1. **Create `SecurityConfig` class**
-  
+  ```java
    @Configuration
    @EnableWebSecurity
    public class SecurityConfig {
@@ -84,11 +84,12 @@
            return http.build();
        }
    }
-    
+ ```   
 
 ## Step 4: Run the Application
-
+```sh
 mvn spring-boot:run
+```
 OR 
 run from your IDE
  
